@@ -7,12 +7,22 @@ const typeDefs = `#graphql
     title: String!
     author: String!
     category: Category # This is a relationship field (Many to One)
+    ratings: [Rating!]! # This is a relationship field (One to Many)
+    rating_average: Float
   }
 
   type Category {
     id: ID!
     name: String!
     books: [Book!]!
+  }
+  
+  type Rating {
+    id: ID!
+    value: Int!
+    title: String!
+    description: String!
+    book: Book!
   }
 
   # The "Query" type is special: it lists all of the available queries that
@@ -28,6 +38,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     createBook(input: BookInput!): Book
+    createRating(input: RatingInput!): Rating
     deleteBook(id: ID!): Boolean
     updateBook(id: ID!, input: BookInput!): Book
   }
@@ -35,6 +46,16 @@ const typeDefs = `#graphql
   input BookInput {
     title: String!
     author: String
+    categoryId: ID
   }
+
+  input RatingInput {
+    value: Int!
+    title: String!
+    description: String!
+    bookId: ID!
+    }
+
 `;
+
 export default typeDefs;
