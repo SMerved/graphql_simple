@@ -1,38 +1,48 @@
-import { books, ratings } from '../data';
+// import { books, ratings } from '../data';
+import { Book, Rating, Context, Args } from '../types';
   export default {
-    createBook: (_parent, { input }) => {
-      const newBook = {
-        id: books.length + 1,
-        title: input.title,
-        author: input.author,
-        categoryId: parseInt(input.categoryId),
-      };
-      console.log('input: ', input, newBook);
-      books.push(newBook);
-      return newBook;
+    createBook: (_parent:Book, { input }:Args, {books}:Context) => {
+      if('author' in input){ // input is a Book
+        const newBook: Book = {
+          id: String(books.length + 1),
+          title: input.title,
+          author: input.author,
+          categoryId: input.categoryId,
+        };
+        console.log('input: ', input, newBook);
+        books.push(newBook);
+        return newBook;
+      } else {
+        return null;
+      }
+      
     },
-    createRating: (_parent, { input }) => {
-      const newRating = {
-        id: ratings.length + 1,
+    createRating: (_parent:never, { input }:Args, {ratings}:Context) => {
+      if('value' in input){ // input is a Rating
+      const newRating:Rating = {
+        id: String(ratings.length + 1),
         value: input.value,
         title: input.title,
         description: input.description,
-        bookId: parseInt(input.bookId),
+        bookId: input.bookId,
       };
       console.log('rating input: ', input, newRating);
       ratings.push(newRating);
       return newRating;
+    } else {
+      return null;
+    }
     },
-    deleteBook: (_parent, { id }) => {
-      const index = books.findIndex(person => person.id === parseInt(id));
+    deleteBook: (_parent:never, { id }:Args, {books}:Context) => {
+      const index = books.findIndex(person => person.id === id);
       if (index === -1) {
         return false; // person not found
       }
       books.splice(index, 1);
       return true; // deletion successful
     },
-    updateBook: (parent, { id, input }, context) => {
-      const index = books.findIndex(person => person.id === parseInt(id));
+    updateBook: (_parent: never, { id, input }:Args, {books}:Context) => {
+      const index = books.findIndex(person => person.id === id);
       if (index === -1) {
         return null; // person not found
       }

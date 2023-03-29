@@ -1,9 +1,9 @@
 // import {categories} from "../data";
-
+import {Book, Category, Rating, Context} from "../types";
 export default {
-    category: (parent:{categoryId:number}, _args:never, {categories}) => categories.find((category) => category.id === parent.categoryId),
-    ratings: (parent:{id:number}, _args:never, {ratings}) => ratings.filter((rating) => rating.bookId === parent.id),
-    rating_average: (parent:{id:number}, _args:never, {ratings}) => {
+    category: (parent:Book, _args:never, {categories}:Context) => categories.find((category) => category.id === parent.categoryId),
+    ratings: (parent:Book, _args:never, {ratings}:Context) => ratings.filter((rating) => rating.bookId === parent.id),
+    rating_average: (parent:Book, _args:never, {ratings}:Context) => {
         const ratingsForBook = ratings.filter((rating) => rating.bookId === parent.id);
         if (ratingsForBook.length === 0) {
             return 0;
