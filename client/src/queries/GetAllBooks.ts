@@ -6,6 +6,8 @@ export default {
           id
           title
           author
+          url
+          description
           rating_average
           ratings {
             title
@@ -13,13 +15,6 @@ export default {
           }
           category {
             name
-            id
-            books {
-              title
-              category {
-                name
-              }
-            }
           }
         }
       }

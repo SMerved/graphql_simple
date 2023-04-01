@@ -6,6 +6,8 @@ const typeDefs = `#graphql
     id: ID!
     title: String!
     author: String!
+    url: String
+    description: String
     category: Category # This is a relationship field (Many to One)
     ratings: [Rating!]! # This is a relationship field (One to Many)
     rating_average: Float
@@ -46,6 +48,8 @@ const typeDefs = `#graphql
   input BookInput {
     title: String!
     author: String
+    url: String
+    description: String
     categoryId: ID
   }
 
