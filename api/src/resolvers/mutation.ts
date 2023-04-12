@@ -8,6 +8,7 @@ import { Book, Rating, Context, Args } from '../types';
           title: input.title,
           author: input.author,
           categoryId: input.categoryId,
+          description: input.description
         };
         console.log('input: ', input, newBook);
         books.push(newBook);

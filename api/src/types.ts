@@ -3,6 +3,7 @@ type Book = {
     title: string;
     author: string;
     categoryId: string;
+    description: string;
 };
 type Category = {
     id: string;
